@@ -1,0 +1,51 @@
+from typing import List
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+class Solution:
+    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+        def helper(original,cloned,target):
+            if original is None:
+                return None
+            if original is target:
+                print("ok")
+                return cloned
+            else:
+                if original.left:
+                    helper(original.left,cloned.left,target)
+                if original.right:
+                    helper(original.right,cloned.right,target)
+        return helper(original,cloned,target)
+def build_tree():
+    original = TreeNode(1)
+    original.left = TreeNode(2)
+    original.right = TreeNode(3)
+    original.left.left = TreeNode(4)
+    original.left.right = TreeNode(5)
+    original.right.left = TreeNode(6)
+    original.right.right = TreeNode(7)
+
+    cloned = TreeNode(1)
+    cloned.left = TreeNode(2)
+    cloned.right = TreeNode(3)
+    cloned.left.left = TreeNode(4)
+    cloned.left.right = TreeNode(5)
+    cloned.right.left = TreeNode(6)
+    cloned.right.right = TreeNode(7)
+    
+    target = original.left.right  # Node with value 5
+
+    return original, cloned, target
+
+# Test the function
+original, cloned, target = build_tree()
+solution = Solution()
+result = solution.getTargetCopy(original, cloned, target)
+print("Target node in cloned tree:", result.val) 
+
+        
