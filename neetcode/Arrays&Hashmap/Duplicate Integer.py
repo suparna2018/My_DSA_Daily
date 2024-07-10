@@ -9,7 +9,7 @@ class Solution:
                 st[ele]+=1
         for ele in st:
             if st[ele]>1:
-                print(ele)
+                # print(ele)
                 return True
         return False
 def testCase():
@@ -20,4 +20,6 @@ def testCase():
         print("Pass")
     else:
         print("Fail")
-    
+
+if __name__=="__main__":
+    testCase()
