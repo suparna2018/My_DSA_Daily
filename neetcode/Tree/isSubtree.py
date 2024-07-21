@@ -7,25 +7,27 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+        
+class Solution:     
+    def validTree(self,root,subRoot):
+        if root is None and subRoot is None:
+            return True
+        if root is None or subRoot is  None:
+            return False
+        if root.val!=subRoot.val:
+            return False
+        lv=self.validTree(root.left,subRoot.left)
+        rv=self.validTree(root.right,subRoot.right)
+        return lv and rv
+        
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        if root is None:
+            return False
+        if self.validTree(root,subRoot):
+            return True
+        else:
+            return self.isSubtree(root.left,subRoot) or self.isSubtree(root.right,subRoot)
 
-class Solution:
-    def goodNodes(self, root: TreeNode) -> int:
-        self.cnt=0
-        mx=-float('inf')
-        def gdNode(root,mx):
-            if root is None:
-                return   
-            if root.val>=mx:
-                print(root.val)
-                mx=root.val
-                self.cnt+=1
-            if root.left:
-                gdNode(root.left,mx)
-            if root.right:
-                gdNode(root.right,mx)
-        gdNode(root,mx)
-        return self.cnt
-    
 def buildTree(values: List[Optional[int]]) -> Optional[TreeNode]:
     if not values:
         return None
@@ -72,18 +74,20 @@ def GivePointer(root,val):
     else:
         return root
     
-@pytest.mark.parametrize("values, expected", [
-    ([3,1,4,3,None,1,5], 4),  # Tree: [3,1,4,3,None,1,5] -> Good nodes: 3, 4, 3, 5
-    ([3,3,None,4,2], 3),       # Tree: [3,3,None,4,2] -> Good nodes: 3, 3, 4
-    ([1], 1),                  # Tree: [1] -> Good nodes: 1
-    ([2,None,4,10,8,None,None,4], 4),  # Tree: [2,None,4,10,8,None,None,4] -> Good nodes: 2, 4, 10, 8
-    ([9,8,7,6,5,4,3], 1),      # Tree: [9,8,7,6,5,4,3] -> Good nodes: 9
+
+@pytest.mark.parametrize("tree_values, subtree_values, expected", [
+    ([3, 4, 5, 1, 2], [4, 1, 2], True),  # Subtree exists
+    ([3, 4, 5, 1, 2], [4, None, 2], False),  # Subtree structure does not match
+    ([1, 2, 3], [2], True),  # Subtree is a single node and exists
+    ([1, 2, 3], [3], True),  # Subtree is a single node and exists
+    ([1, 2], [3], False),  # Subtree does not exist
 ])
-def test_countGoodNodes(values, expected):
+def test_isSubtree(tree_values, subtree_values, expected):
     solution = Solution()
-    root = buildTree(values)
-    result = solution.goodNodes(root)
-    assert result == expected, f"Test failed for tree {values}. Expected {expected}, got {result}"
+    tree = buildTree(tree_values)
+    subtree = buildTree(subtree_values)
+    result = solution.isSubtree(tree, subtree)
+    assert result == expected, f"Test failed for tree {tree_values} and subtree {subtree_values}. Expected {expected}, got {result}"
 
 if __name__ == "__main__":
     pytest.main()

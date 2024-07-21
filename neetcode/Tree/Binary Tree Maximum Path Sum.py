@@ -9,23 +9,21 @@ class TreeNode:
         self.right = right
 
 class Solution:
-    def goodNodes(self, root: TreeNode) -> int:
-        self.cnt=0
-        mx=-float('inf')
-        def gdNode(root,mx):
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        self.maxVal= -float('inf')
+        def dfs(root):
             if root is None:
-                return   
-            if root.val>=mx:
-                print(root.val)
-                mx=root.val
-                self.cnt+=1
-            if root.left:
-                gdNode(root.left,mx)
-            if root.right:
-                gdNode(root.right,mx)
-        gdNode(root,mx)
-        return self.cnt
-    
+                return 0
+            lv=max(dfs(root.left),0)
+            rv=max(dfs(root.right),0)
+            self.maxVal=max(self.maxVal,lv+rv+root.val)
+            print(self.maxVal)
+            return max(lv,rv)+root.val
+
+
+        dfs(root)
+        return self.maxVal
+  
 def buildTree(values: List[Optional[int]]) -> Optional[TreeNode]:
     if not values:
         return None
@@ -72,17 +70,19 @@ def GivePointer(root,val):
     else:
         return root
     
+# Test cases
 @pytest.mark.parametrize("values, expected", [
-    ([3,1,4,3,None,1,5], 4),  # Tree: [3,1,4,3,None,1,5] -> Good nodes: 3, 4, 3, 5
-    ([3,3,None,4,2], 3),       # Tree: [3,3,None,4,2] -> Good nodes: 3, 3, 4
-    ([1], 1),                  # Tree: [1] -> Good nodes: 1
-    ([2,None,4,10,8,None,None,4], 4),  # Tree: [2,None,4,10,8,None,None,4] -> Good nodes: 2, 4, 10, 8
-    ([9,8,7,6,5,4,3], 1),      # Tree: [9,8,7,6,5,4,3] -> Good nodes: 9
+    ([-15, 10, 20, None, None, 15, 5, -5], 40),
+    ([1, 2, 3], 6),
+    ([-10, 9, 20, None, None, 15, 7], 42),
+    ([], -float('inf')),
+    ([1], 1)
 ])
-def test_countGoodNodes(values, expected):
+
+def test_maxPathSum(values, expected):
     solution = Solution()
     root = buildTree(values)
-    result = solution.goodNodes(root)
+    result = solution.maxPathSum(root)
     assert result == expected, f"Test failed for tree {values}. Expected {expected}, got {result}"
 
 if __name__ == "__main__":

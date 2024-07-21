@@ -1,31 +1,38 @@
-from typing import List,Optional
+import queue 
+from typing import List, Optional
 from collections import deque
 import pytest
+
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
-
+        
 class Solution:
-    def goodNodes(self, root: TreeNode) -> int:
-        self.cnt=0
-        mx=-float('inf')
-        def gdNode(root,mx):
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        def levelOrder(root):
             if root is None:
-                return   
-            if root.val>=mx:
-                print(root.val)
-                mx=root.val
-                self.cnt+=1
-            if root.left:
-                gdNode(root.left,mx)
-            if root.right:
-                gdNode(root.right,mx)
-        gdNode(root,mx)
-        return self.cnt
+                return []
+            res=[]
+            q=queue.Queue()
+            q.put(root)
+            while not q.empty():
+                lvlSize=q.qsize()
+                lvlVal=[]
+                for i in range(lvlSize):
+                    node=q.get()
+                    lvlVal.append(node.val)
+                    if node.left:
+                        q.put(node.left)
+                    if node.right:
+                        q.put(node.right)
+                res.append(lvlVal)
+            return res
+        return levelOrder(root)
     
+  
 def buildTree(values: List[Optional[int]]) -> Optional[TreeNode]:
     if not values:
         return None
@@ -72,17 +79,18 @@ def GivePointer(root,val):
     else:
         return root
     
+# Test cases
 @pytest.mark.parametrize("values, expected", [
-    ([3,1,4,3,None,1,5], 4),  # Tree: [3,1,4,3,None,1,5] -> Good nodes: 3, 4, 3, 5
-    ([3,3,None,4,2], 3),       # Tree: [3,3,None,4,2] -> Good nodes: 3, 3, 4
-    ([1], 1),                  # Tree: [1] -> Good nodes: 1
-    ([2,None,4,10,8,None,None,4], 4),  # Tree: [2,None,4,10,8,None,None,4] -> Good nodes: 2, 4, 10, 8
-    ([9,8,7,6,5,4,3], 1),      # Tree: [9,8,7,6,5,4,3] -> Good nodes: 9
+    ([3, 9, 20, None, None, 15, 7], [[3], [9, 20], [15, 7]]),  # Tree: [3,9,20,None,None,15,7]
+    ([1], [[1]]),  # Tree: [1]
+    ([1, 2, 3, 4, 5, 6, 7], [[1], [2, 3], [4, 5, 6, 7]]),  # Tree: [1,2,3,4,5,6,7]
+    ([1, None, 2, None, 3], [[1], [2], [3]]),  # Tree: [1,None,2,None,3]
+    ([], []),  # Empty tree
 ])
-def test_countGoodNodes(values, expected):
+def test_levelOrder(values, expected):
     solution = Solution()
     root = buildTree(values)
-    result = solution.goodNodes(root)
+    result = solution.levelOrder(root)
     assert result == expected, f"Test failed for tree {values}. Expected {expected}, got {result}"
 
 if __name__ == "__main__":
