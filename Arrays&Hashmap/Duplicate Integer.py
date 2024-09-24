@@ -1,3 +1,6 @@
+
+
+
 from typing import List
 class Solution:
     def hasDuplicate(self, nums: List[int]) -> bool:
@@ -12,6 +15,7 @@ class Solution:
                 # print(ele)
                 return True
         return False
+    
 def testCase():
     solution=Solution()
     input=[1,2,3,3]
@@ -23,3 +27,7 @@ def testCase():
 
 if __name__=="__main__":
     testCase()
+
+
+# TC: O(n)
+# SC : O(n)

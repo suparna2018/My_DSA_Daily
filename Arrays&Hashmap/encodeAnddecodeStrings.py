@@ -49,3 +49,5 @@ if __name__=="__main__":
     TestCase()
 
 
+# TC:O(n)
+# SC:O(n)
