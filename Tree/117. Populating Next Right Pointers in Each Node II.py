@@ -39,6 +39,7 @@ class Solution:
                     dummy.next=popped.right
                     dummy=dummy.next
         return root
+    
 def test_connect():
     # Specific test case: [1, 2, 3, 4, 5, 6, 7]
     # nodes = [1, 2, 3, 4, 5, 6, 7]

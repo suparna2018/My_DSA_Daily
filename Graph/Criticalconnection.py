@@ -1,4 +1,11 @@
-# https://leetcode.com/problems/critical-connections-in-a-network/
+
+
+
+
+# https://leetcode.com/problems/critical-connections-in-a-network/description/
+
+
+
 
 class Solution:
     def __init__(self):
@@ -30,3 +37,4 @@ class Solution:
         low=[0]*(n+1)
         self.dfs(0,-1,adj,time,low,vis)
         return self.bridges
+

@@ -18,6 +18,7 @@ class Solution:
 
             self.Diam=max(self.Diam,right+lft)
             return max(lft,right)+1
+        
         Diameter(root)
         return self.Diam
     

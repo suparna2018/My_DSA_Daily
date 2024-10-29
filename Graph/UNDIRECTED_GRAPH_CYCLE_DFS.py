@@ -1,14 +1,12 @@
 # https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=detect-cycle-in-an-undirected-graph
-
-
-
+from collections import defaultdict
 from typing import List
 class Solution:
     def DFS(self,V,adj,vis,src,parent):
         vis[src]=1
         for ele in adj[src]:
             if vis[ele]==0:
-                if self.DFS(v,adj,vis,ele,src):
+                if self.DFS(V,adj,vis,ele,src):
                     return True
             elif (parent!=ele):
                 return True
@@ -22,27 +20,18 @@ class Solution:
                     return True
         return False
 	   
-	            
-	            
-	        
-#{ 
- # Driver Code Starts
+       
+adjacencyList=defaultdict(list)
+adjacencyList={
+    0:[1,2],
+    1:[0,3],
+    2:[3,0,4],
+    4:[3,2],
+    3:[2,1,4],
+}
 
-if __name__ == '__main__':
-
-	T=int(input())
-	for i in range(T):
-		V, E = map(int, input().split())
-		adj = [[] for i in range(V)]
-		for _ in range(E):
-			u, v = map(int, input().split())
-			adj[u].append(v)
-			adj[v].append(u)
-		obj = Solution()
-		ans = obj.isCycle(V, adj)
-		if(ans):
-			print("1")
-		else:
-			print("0")
-
-# } Driver Code Ends
+Solution=Solution()
+if Solution.isCycle(V=5,adj=adjacencyList):
+    print("Cycle Exists")
+else:
+    print("No cycle is there")

@@ -11,7 +11,7 @@ class Solution:
         dist[0][0]=0
         directions=[[-1,0],[0,-1],[1,0],[0,1]]
         while q:
-            effort,x,y=heappop(q)
+            effort,x,y=heapq.heappop(q)
             for dx,dy in directions:
                 newx=x+dx
                 newy=y+dy
