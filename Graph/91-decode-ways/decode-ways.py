@@ -24,14 +24,13 @@ class Solution:
             return res
 
         n = len(s)
-        memo={n:1}
+        memo=[0]*(n+1)
+        memo[n]=1
+        
         for ind in range(n-1,-1,-1):
             if s[ind] == "0":  # Invalid if the current segment starts with '0'
                 memo[ind]=0
-            else:
-                if ind in memo:  # Return memoized result if available
-                    return memo[ind]
-
+            else: 
                 # Take 1 character
                 res =memo[ind+1] 
                 
