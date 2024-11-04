@@ -20,6 +20,4 @@ class Solution:
                 cnt+=1
                 dfs(vis,i)
         
-        return cnt
-        
-        
+        return cnt  

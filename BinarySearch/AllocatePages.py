@@ -1,5 +1,3 @@
-
-
 def isPossible(val,n,m,arr):
     currSum=0
     student=1

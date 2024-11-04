@@ -28,6 +28,3 @@ class Solution:
                 if self.DFS(vis,pathvis,adj,i):
                     return 1
         return 0
-                
-        
-        

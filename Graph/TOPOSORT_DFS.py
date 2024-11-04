@@ -22,6 +22,3 @@ class Solution:
             res.append(s.pop())
         # print(res)
         return res
-                
-            
-
