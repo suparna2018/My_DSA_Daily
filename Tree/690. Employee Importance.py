@@ -23,6 +23,9 @@ class Solution:
                 return res
             return vals[id]+dfs(id)
         return helper(employees,id)
+
+
+        
 def test_getImportance():
     # Specific test case
     # Employees: [[1, 5, [2, 3]], [2, 3, []], [3, 3, []]]

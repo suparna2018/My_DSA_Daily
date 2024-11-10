@@ -26,7 +26,7 @@ def isBipartite(graph, vertices):
         while(q.qsize()>0):
             node=q.get()
             for it in adj[node]:
-                print(node ,it)
+                # print(node ,it)
                 if color[it]==-1:
                     color[it]=1-color[node]
                     q.put(it)
@@ -34,6 +34,7 @@ def isBipartite(graph, vertices):
                     if color[it]==color[node]:
                         return False
         return True
+
 
     for _ in range(vertices):
         if color[_]==-1:

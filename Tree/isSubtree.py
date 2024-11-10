@@ -28,6 +28,7 @@ class Solution:
         else:
             return self.isSubtree(root.left,subRoot) or self.isSubtree(root.right,subRoot)
 
+
 def buildTree(values: List[Optional[int]]) -> Optional[TreeNode]:
     if not values:
         return None
@@ -45,6 +46,7 @@ def buildTree(values: List[Optional[int]]) -> Optional[TreeNode]:
             queue.append(currNode.right)
         i += 1
     return root
+
 
 def print_tree(root: Optional[TreeNode]) -> List[Optional[int]]:
     if not root:

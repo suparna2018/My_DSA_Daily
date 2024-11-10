@@ -16,7 +16,7 @@ class Solution:
             if root is None:
                 return   
             if root.val>=mx:
-                print(root.val)
+                # print(root.val)
                 mx=root.val
                 self.cnt+=1
             if root.left:

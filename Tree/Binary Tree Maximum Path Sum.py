@@ -23,6 +23,7 @@ class Solution:
 
         dfs(root)
         return self.maxVal
+        
   
 def buildTree(values: List[Optional[int]]) -> Optional[TreeNode]:
     if not values:
